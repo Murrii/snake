@@ -40,7 +40,13 @@ public class GameField extends JPanel implements ActionListener{
     }
 
     public void initGame() {
+        right = true;
+        left = false;
+        up = false;
+        down = false;
+
         inGame = true;
+
         dots = 3;
         for (int i = 0; i < dots; i++) {
             x[i] = 48 - i * DOT_SIZE;
@@ -53,8 +59,6 @@ public class GameField extends JPanel implements ActionListener{
         timer.start();
         createApple();
     }
-
-    // зациклить проверку яблока
 
     public void createApple() {
         newApple();
@@ -148,14 +152,6 @@ public class GameField extends JPanel implements ActionListener{
             if(x[0] == x[i] && y[0] == y[i])
                 inGame = false;
         }
-      //  if(x[0] > (SIZE) )
-      //      inGame = false;
-      //  if(x[0] < 0)
-      //      inGame = false;
-     //   if(y[0] > (SIZE) )
-     //       inGame = false;
-     //   if(y[0] < 0)
-     //       inGame = false;
     }
 
     public class inGameListener extends KeyAdapter {
