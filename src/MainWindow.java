@@ -4,7 +4,7 @@ public class MainWindow extends JFrame {
     public MainWindow() {
         setTitle("Змейка");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(320, 360);
+        setSize(336, 360);
         setLocation(400, 200);
         add(new GameField());
         setVisible(true);

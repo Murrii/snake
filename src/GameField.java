@@ -20,31 +20,38 @@ public class GameField extends JPanel implements ActionListener{
     private int[] y = new int [ALL_DOTS];
     private int dots;
     private Timer timer;
+
+    //перенести переменные в класс с передвижением
     private boolean left = false;
     private boolean right = true;
     private boolean up = false;
     private boolean down = false;
-    private boolean inGame = true;
+    //
+    private boolean inGame = false;
 
 
     public GameField(){
         setBackground(Color.BLACK);
         loadImages();
-        initGame();
         addKeyListener(new inGameListener());
+        initGame();
+        startTimer();
         setFocusable(true);
     }
 
     public void initGame() {
+        inGame = true;
         dots = 3;
         for (int i = 0; i < dots; i++) {
             x[i] = 48 - i * DOT_SIZE;
             y[i] = 48;
         }
+    }
+
+    public void startTimer(){
         timer = new Timer(250, this);
         timer.start();
         createApple();
-        
     }
 
     // зациклить проверку яблока
@@ -86,15 +93,23 @@ public class GameField extends JPanel implements ActionListener{
         }
         if(left){
             x[0] -=DOT_SIZE;
+            if (x[0] < 0)
+                inGame = false;
         }
         if(right){
             x[0] +=DOT_SIZE;
+            if (x[0] > (SIZE - DOT_SIZE) )
+                    inGame = false;
         }
         if(up){
             y[0] -=DOT_SIZE;
+            if(y[0] < 0)
+                inGame = false;
         }
         if(down){
             y[0] +=DOT_SIZE;
+            if(y[0] > (SIZE - DOT_SIZE))
+                inGame = false;
         }
     }
 
@@ -120,11 +135,12 @@ public class GameField extends JPanel implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if(inGame){
-            checkApple();
             checkBorders();
+            checkApple();
             move();
+            repaint();
         }
-        repaint();
+        //repaint();
     }
 
     public void checkBorders() {
@@ -132,34 +148,35 @@ public class GameField extends JPanel implements ActionListener{
             if(x[0] == x[i] && y[0] == y[i])
                 inGame = false;
         }
-        if(x[0] > (SIZE) )
-            inGame = false;
-        if(x[0] < 0)
-            inGame = false;
-        if(y[0] > (SIZE) )
-            inGame = false;
-        if(y[0] < 0)
-            inGame = false;
+      //  if(x[0] > (SIZE) )
+      //      inGame = false;
+      //  if(x[0] < 0)
+      //      inGame = false;
+     //   if(y[0] > (SIZE) )
+     //       inGame = false;
+     //   if(y[0] < 0)
+     //       inGame = false;
     }
 
-    class inGameListener extends KeyAdapter{
+    public class inGameListener extends KeyAdapter {
+
         @Override
         public void keyPressed(KeyEvent e) {
             super.keyPressed(e);
             int key = e.getKeyCode();
-            if (key == KeyEvent.VK_LEFT && ! right){
+            if (key == KeyEvent.VK_LEFT && !right) {
                 left = true;
                 up = false;
                 down = false;
             }
 
-            if (key == KeyEvent.VK_RIGHT && ! left) {
+            if (key == KeyEvent.VK_RIGHT && !left) {
                 right = true;
                 up = false;
                 down = false;
             }
 
-            if (key == KeyEvent.VK_UP && ! down) {
+            if (key == KeyEvent.VK_UP && !down) {
                 up = true;
                 left = false;
                 right = false;
@@ -168,6 +185,9 @@ public class GameField extends JPanel implements ActionListener{
                 right = false;
                 down = true;
                 left = false;
+            }
+            if (key == KeyEvent.VK_ENTER){
+                initGame();
             }
         }
     }
