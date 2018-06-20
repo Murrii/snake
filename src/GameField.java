@@ -34,9 +34,10 @@ public class GameField extends JPanel implements ActionListener {
     public GameField() {
         setBackground(Color.BLACK);
         loadImages();
-        addKeyListener(new inGameListener());
         initGame();
+        addKeyListener(new inGameListener());
         setFocusable(true);
+        startTimer();
     }
 
     public void initGame() {
@@ -53,8 +54,6 @@ public class GameField extends JPanel implements ActionListener {
             x[i] = 48 - i * DOT_SIZE;
             y[i] = 48;
         }
-
-        startTimer();
     }
 
     public void startTimer() {
