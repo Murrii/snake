@@ -30,5 +30,38 @@ public class MainMenuPanel extends JPanel{
             }
         };
         newGame.addActionListener(startGameListener);
+
+        ActionListener scoresListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Таблица чемпионов");
+            }
+        };
+        scores.addActionListener(scoresListener);
+
+        ActionListener settingsListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Настройки");
+            }
+        };
+        settings.addActionListener(settingsListener);
+
+        ActionListener cookieListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Кариночка - молодец! =3 <3");
+            }
+        };
+        cookie.addActionListener(cookieListener);
+
+        ActionListener exitListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Завершение работы");
+                System.exit(0);
+            }
+        };
+        exit.addActionListener(exitListener);
     }
 }
